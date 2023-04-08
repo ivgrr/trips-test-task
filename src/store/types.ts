@@ -22,4 +22,19 @@ interface ILoginCredentials {
   password: string;
 }
 
-export type { IUser, IUserState, ILoginCredentials, UserRole };
+interface IFirestoreTrip {
+  id: string;
+  car: string;
+  from: string;
+  to: string;
+  users: IFirestoreUser[];
+}
+
+interface IFirestoreUser {
+  uid: string;
+  email: string | null;
+  role: UserRole;
+  isAdmin: boolean;
+}
+
+export type { IUser, IUserState, ILoginCredentials, UserRole, IFirestoreUser, IFirestoreTrip };

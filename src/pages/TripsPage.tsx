@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { getAllTripsThunk, setTripThunk } from '../store/slices/trip/tripSlice';
-import { IFireStoreTrip } from '../utils/types';
+import { IFirestoreTrip } from '../store/types';
 import { useAuth } from '../hooks/useAuth';
 import { TripList } from '../components/TripList';
 import { TripForm } from '../components/TripForm';
@@ -15,7 +15,7 @@ export const TripsPage: FC = () => {
     dispatch(getAllTripsThunk());
   }, [dispatch]);
 
-  const handleAddTrip = async (trip: IFireStoreTrip) => {
+  const handleAddTrip = async (trip: IFirestoreTrip) => {
     await dispatch(setTripThunk(trip));
   };
 

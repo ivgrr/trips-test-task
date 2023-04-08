@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IFireStoreTrip } from '../../../utils/types';
-import { addTripToFirestore, getAllFirestoreTrips } from '../../../utils/firebase-utils';
+import { IFirestoreTrip } from '../../types';
+import { addTripToFirestore, getAllFirestoreTrips } from '../../helpers';
 
 const initialState: {
-  trip: IFireStoreTrip;
-  trips: IFireStoreTrip[];
+  trip: IFirestoreTrip;
+  trips: IFirestoreTrip[];
   isLoading: boolean;
 } = {
   trip: {
@@ -18,7 +18,7 @@ const initialState: {
   isLoading: false,
 };
 
-export const setTripThunk = createAsyncThunk('trip/setTrip', async (trip: IFireStoreTrip) => {
+export const setTripThunk = createAsyncThunk('trip/setTrip', async (trip: IFirestoreTrip) => {
   try {
     await addTripToFirestore(trip);
     return trip;

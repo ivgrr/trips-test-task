@@ -1,8 +1,8 @@
 import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
-import { FireStoreRoles, IFireStoreTrip, IFireStoreUser } from './types';
+import { UserRole, IFirestoreTrip, IFirestoreUser } from './types';
 
-const addUserToFirestore = async (user: IFireStoreUser) => {
+const addUserToFirestore = async (user: IFirestoreUser) => {
   const userCollectionRef = collection(db, 'users');
   const userId = auth.currentUser?.uid;
   if (!userId) return;
@@ -24,7 +24,7 @@ const getUserRole = async () => {
   try {
     const docSnap = await getDoc(userDocRef);
     if (docSnap.exists()) {
-      const role = docSnap.data().role as FireStoreRoles;
+      const role = docSnap.data().role as UserRole;
       return role;
     } else {
       throw new Error('User document not found');
@@ -34,7 +34,7 @@ const getUserRole = async () => {
   }
 };
 
-const updateUserRole = async (userId: string, role: FireStoreRoles) => {
+const updateUserRole = async (userId: string, role: UserRole) => {
   const userRef = doc(db, 'users', userId);
   try {
     await updateDoc(userRef, { role });
@@ -48,9 +48,9 @@ const getAllFirestoreUsers = async () => {
 
   try {
     const querySnapshot = await getDocs(usersCollectionRef);
-    const users: IFireStoreUser[] = [];
+    const users: IFirestoreUser[] = [];
     querySnapshot.forEach((doc) => {
-      users.push(doc.data() as IFireStoreUser);
+      users.push(doc.data() as IFirestoreUser);
     });
     return users;
   } catch (e) {
@@ -82,9 +82,9 @@ const getAllFirestoreTrips = async () => {
 
   try {
     const querySnapshot = await getDocs(tripsCollectionRef);
-    const trips: IFireStoreTrip[] = [];
+    const trips: IFirestoreTrip[] = [];
     querySnapshot.forEach((doc) => {
-      trips.push(doc.data() as IFireStoreTrip);
+      trips.push(doc.data() as IFirestoreTrip);
     });
     return trips;
   } catch (e) {
@@ -92,7 +92,7 @@ const getAllFirestoreTrips = async () => {
   }
 };
 
-const addTripToFirestore = async (trip: IFireStoreTrip) => {
+const addTripToFirestore = async (trip: IFirestoreTrip) => {
   const tripsCollectionRef = collection(db, 'trips');
   const tripId = trip.id;
   const docRef = doc(tripsCollectionRef, tripId);

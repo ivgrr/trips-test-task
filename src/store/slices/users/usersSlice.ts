@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FireStoreRoles, IFireStoreUser } from '../../../utils/types';
-import { getAllFirestoreUsers, updateUserRole } from '../../../utils/firebase-utils';
+import { UserRole, IFirestoreUser } from '../../types';
+import { getAllFirestoreUsers, updateUserRole } from '../../helpers';
 
-const initialState: { users: IFireStoreUser[]; isLoading: boolean } = {
+const initialState: { users: IFirestoreUser[]; isLoading: boolean } = {
   users: [],
   isLoading: false,
 };
@@ -18,7 +18,7 @@ export const getAllFirestoreUsersThunk = createAsyncThunk('firestore/getUsers', 
 
 export const updateFirestoreUserRoleThunk = createAsyncThunk(
   'users/updateRole',
-  async ({ uid, role }: { uid: string; role: FireStoreRoles }) => {
+  async ({ uid, role }: { uid: string; role: UserRole }) => {
     try {
       await updateUserRole(uid, role);
     } catch {
@@ -31,7 +31,7 @@ export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    updateLocalUserRole(state, action: PayloadAction<{ uid: string; role: FireStoreRoles }>) {
+    updateLocalUserRole(state, action: PayloadAction<{ uid: string; role: UserRole }>) {
       const user = state.users.find((user) => user.uid === action.payload.uid);
       if (user) {
         user.role = action.payload.role;

@@ -6,12 +6,8 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 import { auth, facebookAuthProvider, googleAuthProvider } from '../../../firebase';
-import {
-  addUserToFirestore,
-  checkIsAdminFirestore,
-  getUserRole,
-} from '../../../utils/firebase-utils';
-import { ILoginCredentials, UserRole } from './types';
+import { addUserToFirestore, checkIsAdminFirestore, getUserRole } from '../../helpers';
+import { ILoginCredentials, UserRole } from '../../types';
 import { setLoading, setUser } from './userSlice';
 
 export const loginThunk = createAsyncThunk(

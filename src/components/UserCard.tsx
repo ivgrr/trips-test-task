@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Button, Card, Col, Form } from 'react-bootstrap';
 import { useAppDispatch } from '../hooks/useAppDispatch';
-import { FireStoreRoles } from '../utils/types';
+import { UserRole } from '../store/types';
 import {
   updateFirestoreUserRoleThunk,
   updateLocalUserRole,
@@ -14,7 +14,7 @@ interface IUserCardProps {
 }
 
 export const UserCard: FC<IUserCardProps> = ({ uid, email, role }) => {
-  const [selectedRole, setSelectedRole] = useState<FireStoreRoles>('');
+  const [selectedRole, setSelectedRole] = useState<UserRole>('');
   const dispatch = useAppDispatch();
 
   const handleUpdateRole = async (uid: string) => {
@@ -33,7 +33,7 @@ export const UserCard: FC<IUserCardProps> = ({ uid, email, role }) => {
             <Form.Control
               as='select'
               value={selectedRole}
-              onChange={(e) => setSelectedRole(e.target.value as FireStoreRoles)}
+              onChange={(e) => setSelectedRole(e.target.value as UserRole)}
             >
               <option value=''>-</option>
               <option value='driver'>Driver</option>

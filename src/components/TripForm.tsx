@@ -2,10 +2,10 @@ import React, { FC, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { v4 as uuid } from 'uuid';
-import { IFireStoreTrip } from '../utils/types';
+import { IFirestoreTrip } from '../store/types';
 
 interface ITripFormProps {
-  handleAddTrip(trip: IFireStoreTrip): void;
+  handleAddTrip(trip: IFirestoreTrip): void;
 }
 
 export const TripForm: FC<ITripFormProps> = ({ handleAddTrip }) => {
