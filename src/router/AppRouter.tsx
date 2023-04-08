@@ -1,9 +1,22 @@
 import React, { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { privateRoutes, publicRoutes } from './index';
+import { useAuth } from '../hooks/useAuth';
+import { adminRoutes, privateRoutes, publicRoutes } from './index';
 
 export const AppRouter: FC = () => {
-  const isAuth = false;
+  const { isAuth, isLoading, error, currentUser } = useAuth();
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (currentUser && currentUser.isAdmin) {
+    privateRoutes.push(...adminRoutes);
+  }
 
   return isAuth ? (
     <Routes>

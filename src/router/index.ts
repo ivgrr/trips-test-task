@@ -22,9 +22,10 @@ export const publicRoutes: IRoute[] = [
   { path: RouteNames.NOT_FOUND, element: NotFoundPage },
 ];
 
+export const adminRoutes: IRoute[] = [{ path: RouteNames.ADMIN_PAGE, element: AdminPage }];
+
 export const privateRoutes: IRoute[] = [
   { path: RouteNames.USER_PAGE, element: UserPage },
-  { path: RouteNames.ADMIN_PAGE, element: AdminPage },
   { path: RouteNames.TRIPS, element: TripsPage },
   { path: RouteNames.NOT_FOUND, element: NotFoundPage },
 ];

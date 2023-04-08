@@ -1,5 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { Container } from 'react-bootstrap';
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { getAllTripsThunk, setTripThunk } from '../store/slices/trip/tripSlice';
+import { IFireStoreTrip } from '../utils/types';
+import { useAuth } from '../hooks/useAuth';
+import { TripList } from '../components/TripList';
+import { TripForm } from '../components/TripForm';
+import { UserNavbar } from '../components/UserNavbar';
 
 export const TripsPage: FC = () => {
-  return <div>TripsPage</div>;
+  const dispatch = useAppDispatch();
+  const { currentUser } = useAuth();
+  useEffect(() => {
+    dispatch(getAllTripsThunk());
+  }, [dispatch]);
+
+  const handleAddTrip = async (trip: IFireStoreTrip) => {
+    await dispatch(setTripThunk(trip));
+  };
+
+  return (
+    <>
+      <UserNavbar />
+      <Container>
+        {currentUser?.isAdmin && <TripForm handleAddTrip={handleAddTrip} />}
+        <TripList />
+      </Container>
+    </>
+  );
 };
